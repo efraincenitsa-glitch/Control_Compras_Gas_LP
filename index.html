@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Control Gas LP</title>
+
+<link rel="apple-touch-icon" sizes="1024x1024" href="icon-1024.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f172a">
+
+<style>
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0f172a;color:white;}
+header{text-align:center;padding:20px;font-size:22px;font-weight:bold;background:linear-gradient(90deg,#1e3a8a,#2563eb);}
+.container{padding:15px;}
+input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;font-size:16px;}
+button{width:100%;padding:14px;margin-top:10px;border:none;border-radius:12px;font-size:18px;font-weight:bold;background:#2563eb;color:white;}
+button:active{transform:scale(0.98);}
+.card{background:#1e293b;padding:15px;border-radius:12px;margin-top:15px;}
+.lista{margin-top:20px;}
+.compra{background:#334155;padding:12px;border-radius:10px;margin-bottom:10px;font-size:14px;}
+.resumen{font-size:14px;margin-top:10px;opacity:0.9;}
+.delete{background:#dc2626;margin-top:5px;font-size:12px;padding:6px;}
+</style>
+</head>
+<body>
+
+<header>🔥 Control de Gas LP</header>
+
+<div class="container">
+
+<label>Fecha de compra:</label>
+<input type="date" id="fecha">
+
+<label>Litros de gas:</label>
+<input type="number" id="litros" placeholder="Ej. 100">
+
+<label>Costo total (MXN):</label>
+<input type="number" id="costo" placeholder="Ej. 850">
+
+<label>Comentarios:</label>
+<textarea id="comentarios" placeholder="Observaciones..."></textarea>
+
+<button onclick="guardarCompra()">Guardar Compra</button>
+
+<div class="card">
+<h3>Resumen</h3>
+<div id="resumen"></div>
+</div>
+
+<div class="lista">
+<h3>Historial</h3>
+<div id="listaCompras"></div>
+</div>
+
+</div>
+
+<script>
+
+let compras = JSON.parse(localStorage.getItem("gasCompras")) || [];
+
+function guardarCompra(){
+  let fecha = document.getElementById("fecha").value;
+  let litros = parseFloat(document.getElementById("litros").value);
+  let costo = parseFloat(document.getElementById("costo").value);
+  let comentarios = document.getElementById("comentarios").value;
+
+  if(!fecha || !litros || !costo){
+    alert("Completa todos los campos");
+    return;
+  }
+
+  compras.push({fecha, litros, costo, comentarios});
+  localStorage.setItem("gasCompras", JSON.stringify(compras));
+
+  limpiar();
+  mostrarCompras();
+}
+
+function mostrarCompras(){
+  let lista = document.getElementById("listaCompras");
+  lista.innerHTML="";
+  compras.sort((a,b)=> new Date(b.fecha) - new Date(a.fecha));
+
+  let duraciones=[];
+
+  compras.forEach((c,index)=>{
+    let costoLitro=(c.costo/c.litros).toFixed(2);
+    let duracion="";
+
+    if(index < compras.length-1){
+      let actual=new Date(c.fecha);
+      let anterior=new Date(compras[index+1].fecha);
+      let dias=Math.round((actual-anterior)/(1000*60*60*24));
+      duracion=`Duró ${dias} días`;
+      duraciones.push(dias);
+    }
+
+    lista.innerHTML+=`
+    <div class="compra">
+      <strong>${c.fecha}</strong><br>
+      Litros: ${c.litros} L<br>
+      Costo: $${c.costo} MXN<br>
+      Costo por litro: $${costoLitro}<br>
+      ${duracion}<br>
+      ${c.comentarios ? "Nota: "+c.comentarios+"<br>" : ""}
+      <button class="delete" onclick="eliminar(${index})">Eliminar</button>
+    </div>`;
+  });
+
+  actualizarResumen(duraciones);
+}
+
+function actualizarResumen(duraciones){
+  let resumen=document.getElementById("resumen");
+  if(compras.length<2){
+    resumen.innerHTML="Agrega al menos dos registros para calcular duración promedio.";
+    return;
+  }
+
+  let promedio=(duraciones.reduce((a,b)=>a+b,0)/duraciones.length).toFixed(1);
+  resumen.innerHTML=`Duración promedio: <strong>${promedio} días</strong>`;
+}
+
+function eliminar(index){
+  compras.splice(index,1);
+  localStorage.setItem("gasCompras", JSON.stringify(compras));
+  mostrarCompras();
+}
+
+function limpiar(){
+  document.getElementById("fecha").value="";
+  document.getElementById("litros").value="";
+  document.getElementById("costo").value="";
+  document.getElementById("comentarios").value="";
+}
+
+mostrarCompras();
+
+</script>
+
+</body>
+</html>
