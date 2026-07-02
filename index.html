@@ -459,6 +459,8 @@ guardarEnLocalStorage();
 limpiar();
 mostrarCompras();
 
+}
+
 function obtenerComprasOrdenadas(){
   return [...compras].sort((a,b) => parseFechaLocal(b.fecha) - parseFechaLocal(a.fecha));
 }
