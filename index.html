@@ -312,7 +312,7 @@ input[type="file"]{
     <h3>Registrar compra</h3>
 
     <label>Fecha de compra:</label>
-    <input type="date" id="fecha">
+    <input type="date" id="fecha" max="2099-12-31">
 
     <label>Litros de gas:</label>
     <input type="number" id="litros" placeholder="Ej. 100" min="0" step="0.01">
@@ -426,25 +426,38 @@ function guardarCompra(){
 
   const existeFecha = compras.some(c => c.fecha === fecha);
 
-  if(existeFecha){
-    const confirmar = confirm("Ya existe una compra registrada con esta fecha. ¿Deseas guardarla de todos modos?");
-    if(!confirmar){
-      return;
-    }
+if(existeFecha){
+  const confirmar = confirm(
+    "Ya existe una compra registrada con esta fecha. ¿Deseas guardarla de todos modos?"
+  );
+
+  if(!confirmar){
+    return;
   }
-
-  compras.push({
-    id: generarId(),
-    fecha,
-    litros,
-    costo,
-    comentarios
-  });
-
-  guardarEnLocalStorage();
-  limpiar();
-  mostrarCompras();
 }
+
+const existeRegistro = compras.some(c =>
+  c.fecha === fecha &&
+  Number(c.litros) === litros &&
+  Number(c.costo) === costo
+);
+
+if(existeRegistro){
+  alert("Ya existe una compra idéntica.");
+  return;
+}
+
+compras.push({
+  id: generarId(),
+  fecha,
+  litros,
+  costo,
+  comentarios
+});
+
+guardarEnLocalStorage();
+limpiar();
+mostrarCompras();
 
 function obtenerComprasOrdenadas(){
   return [...compras].sort((a,b) => parseFechaLocal(b.fecha) - parseFechaLocal(a.fecha));
@@ -505,8 +518,8 @@ function mostrarCompras(){
       duracion = "Compra más antigua registrada";
     }
 
-    lista.innerHTML += `
-      <div class="compra">
+lista.innerHTML += `
+  <div class="compra">
         <strong>${formatearFecha(c.fecha)}</strong><br>
         Litros: ${Number(c.litros).toFixed(2)} L<br>
         Costo: ${formatoMoneda(c.costo)}<br>
@@ -913,11 +926,11 @@ function restaurarRespaldo(){
 
 function escaparHTML(texto){
   return String(texto)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function inicializarFechaActual(){
