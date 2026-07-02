@@ -11,133 +11,930 @@
 <meta name="theme-color" content="#0f172a">
 
 <style>
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0f172a;color:white;}
-header{text-align:center;padding:20px;font-size:22px;font-weight:bold;background:linear-gradient(90deg,#1e3a8a,#2563eb);}
-.container{padding:15px;}
-input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;font-size:16px;}
-button{width:100%;padding:14px;margin-top:10px;border:none;border-radius:12px;font-size:18px;font-weight:bold;background:#2563eb;color:white;}
-button:active{transform:scale(0.98);}
-.card{background:#1e293b;padding:15px;border-radius:12px;margin-top:15px;}
-.lista{margin-top:20px;}
-.compra{background:#334155;padding:12px;border-radius:10px;margin-bottom:10px;font-size:14px;}
-.resumen{font-size:14px;margin-top:10px;opacity:0.9;}
-.delete{background:#dc2626;margin-top:5px;font-size:12px;padding:6px;}
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#0f172a;
+  color:white;
+}
+
+header{
+  text-align:center;
+  padding:22px 15px;
+  font-size:23px;
+  font-weight:bold;
+  background:linear-gradient(90deg,#1e3a8a,#2563eb);
+  box-shadow:0 4px 18px rgba(0,0,0,0.35);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.container{
+  padding:15px;
+  max-width:760px;
+  margin:auto;
+}
+
+label{
+  font-size:14px;
+  font-weight:600;
+  color:#dbeafe;
+  margin-top:10px;
+  display:block;
+}
+
+input,
+textarea{
+  width:100%;
+  padding:13px;
+  margin:8px 0 12px;
+  border-radius:12px;
+  border:1px solid #334155;
+  font-size:16px;
+  background:#e2e8f0;
+  color:#0f172a;
+  outline:none;
+}
+
+textarea{
+  min-height:82px;
+  resize:vertical;
+}
+
+input:focus,
+textarea:focus{
+  border:2px solid #60a5fa;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:none;
+  border-radius:14px;
+  font-size:17px;
+  font-weight:bold;
+  background:#2563eb;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.25);
+}
+
+button:active{
+  transform:scale(0.98);
+}
+
+.btn-secondary{
+  background:#475569;
+}
+
+.btn-success{
+  background:#16a34a;
+}
+
+.btn-warning{
+  background:#ca8a04;
+}
+
+.btn-danger{
+  background:#dc2626;
+}
+
+.btn-small{
+  font-size:13px;
+  padding:8px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+.card{
+  background:#1e293b;
+  padding:16px;
+  border-radius:16px;
+  margin-top:16px;
+  box-shadow:0 8px 22px rgba(0,0,0,0.25);
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+.card h3{
+  margin-top:0;
+  margin-bottom:12px;
+}
+
+.resumen{
+  font-size:14px;
+  margin-top:10px;
+  line-height:1.7;
+}
+
+.resumen-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+
+.stat{
+  background:#334155;
+  padding:12px;
+  border-radius:13px;
+  border-left:5px solid #3b82f6;
+}
+
+.stat-title{
+  font-size:12px;
+  color:#bfdbfe;
+  margin-bottom:4px;
+}
+
+.stat-value{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.stat-small{
+  font-size:13px;
+  color:#e2e8f0;
+  margin-top:3px;
+}
+
+.alerta-verde{
+  background:#166534;
+  padding:13px;
+  border-radius:13px;
+  margin-top:12px;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.alerta-amarilla{
+  background:#ca8a04;
+  padding:13px;
+  border-radius:13px;
+  margin-top:12px;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.alerta-roja{
+  background:#b91c1c;
+  padding:13px;
+  border-radius:13px;
+  margin-top:12px;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.alerta-azul{
+  background:#1d4ed8;
+  padding:13px;
+  border-radius:13px;
+  margin-top:12px;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.lista{
+  margin-top:20px;
+}
+
+.compra{
+  background:#334155;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  font-size:14px;
+  line-height:1.55;
+  border-left:5px solid #60a5fa;
+}
+
+.compra strong{
+  font-size:16px;
+  color:#bfdbfe;
+}
+
+.compra .nota{
+  background:#1e293b;
+  padding:8px;
+  border-radius:10px;
+  margin-top:8px;
+  font-size:13px;
+  color:#e2e8f0;
+}
+
+.delete{
+  background:#dc2626;
+  margin-top:8px;
+  font-size:13px;
+  padding:8px;
+}
+
+.acciones{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+  margin-top:12px;
+}
+
+.grafica{
+  margin-top:10px;
+}
+
+.barra-contenedor{
+  margin-bottom:10px;
+}
+
+.barra-label{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  margin-bottom:4px;
+  color:#dbeafe;
+}
+
+.barra-fondo{
+  height:18px;
+  background:#0f172a;
+  border-radius:999px;
+  overflow:hidden;
+  border:1px solid #475569;
+}
+
+.barra{
+  height:100%;
+  background:linear-gradient(90deg,#22c55e,#3b82f6);
+  border-radius:999px;
+  min-width:4%;
+}
+
+.vacio{
+  color:#cbd5e1;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.footer-info{
+  text-align:center;
+  font-size:12px;
+  color:#94a3b8;
+  margin:22px 0 10px;
+}
+
+input[type="file"]{
+  background:#1e293b;
+  color:white;
+  border:1px dashed #64748b;
+}
+
+@media(min-width:650px){
+  .resumen-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .acciones{
+    grid-template-columns:1fr 1fr;
+  }
+}
 </style>
 </head>
+
 <body>
 
 <header>🔥 Control de Gas LP</header>
 
 <div class="container">
 
-<label>Fecha de compra:</label>
-<input type="date" id="fecha">
+  <div class="card">
+    <h3>Registrar compra</h3>
 
-<label>Litros de gas:</label>
-<input type="number" id="litros" placeholder="Ej. 100">
+    <label>Fecha de compra:</label>
+    <input type="date" id="fecha">
 
-<label>Costo total (MXN):</label>
-<input type="number" id="costo" placeholder="Ej. 850">
+    <label>Litros de gas:</label>
+    <input type="number" id="litros" placeholder="Ej. 100" min="0" step="0.01">
 
-<label>Comentarios:</label>
-<textarea id="comentarios" placeholder="Observaciones..."></textarea>
+    <label>Costo total (MXN):</label>
+    <input type="number" id="costo" placeholder="Ej. 850" min="0" step="0.01">
 
-<button onclick="guardarCompra()">Guardar Compra</button>
+    <label>Comentarios:</label>
+    <textarea id="comentarios" placeholder="Observaciones..."></textarea>
 
-<div class="card">
-<h3>Resumen</h3>
-<div id="resumen"></div>
-</div>
+    <button onclick="guardarCompra()">Guardar compra</button>
+  </div>
 
-<div class="lista">
-<h3>Historial</h3>
-<div id="listaCompras"></div>
-</div>
+  <div class="card">
+    <h3>Resumen inteligente</h3>
+    <div id="resumen" class="resumen"></div>
+  </div>
+
+  <div class="card">
+    <h3>Gráfica de gasto</h3>
+    <div id="grafica" class="grafica"></div>
+  </div>
+
+  <div class="card">
+    <h3>Respaldo y restauración</h3>
+
+    <button class="btn-success" onclick="descargarRespaldo()">Descargar respaldo JSON</button>
+
+    <label style="margin-top:15px;">Restaurar respaldo:</label>
+    <input type="file" id="archivoRespaldo" accept=".json">
+
+    <button class="btn-warning" onclick="restaurarRespaldo()">Restaurar respaldo</button>
+  </div>
+
+  <div class="lista">
+    <h3>Historial</h3>
+    <div id="listaCompras"></div>
+  </div>
+
+  <div class="footer-info">
+    App offline con almacenamiento local en este dispositivo.
+  </div>
 
 </div>
 
 <script>
-
 let compras = JSON.parse(localStorage.getItem("gasCompras")) || [];
+
+function generarId(){
+  return Date.now().toString(36) + Math.random().toString(36).substring(2);
+}
+
+function parseFechaLocal(fechaTexto){
+  const partes = fechaTexto.split("-");
+  return new Date(
+    Number(partes[0]),
+    Number(partes[1]) - 1,
+    Number(partes[2])
+  );
+}
+
+function formatearFecha(fechaTexto){
+  if(!fechaTexto) return "";
+  const fecha = parseFechaLocal(fechaTexto);
+  return fecha.toLocaleDateString("es-MX", {
+    day:"2-digit",
+    month:"long",
+    year:"numeric"
+  });
+}
+
+function formatearFechaCorta(fecha){
+  return fecha.toLocaleDateString("es-MX", {
+    day:"2-digit",
+    month:"long",
+    year:"numeric"
+  });
+}
+
+function formatoMoneda(valor){
+  return Number(valor).toLocaleString("es-MX", {
+    style:"currency",
+    currency:"MXN"
+  });
+}
+
+function guardarEnLocalStorage(){
+  localStorage.setItem("gasCompras", JSON.stringify(compras));
+}
 
 function guardarCompra(){
   let fecha = document.getElementById("fecha").value;
   let litros = parseFloat(document.getElementById("litros").value);
   let costo = parseFloat(document.getElementById("costo").value);
-  let comentarios = document.getElementById("comentarios").value;
+  let comentarios = document.getElementById("comentarios").value.trim();
 
-  if(!fecha || !litros || !costo){
-    alert("Completa todos los campos");
+  if(!fecha || isNaN(litros) || isNaN(costo)){
+    alert("Completa la fecha, los litros y el costo total.");
     return;
   }
 
-  compras.push({fecha, litros, costo, comentarios});
-  localStorage.setItem("gasCompras", JSON.stringify(compras));
+  if(litros <= 0){
+    alert("Los litros deben ser mayores a 0.");
+    return;
+  }
 
+  if(costo <= 0){
+    alert("El costo debe ser mayor a 0.");
+    return;
+  }
+
+  const existeFecha = compras.some(c => c.fecha === fecha);
+
+  if(existeFecha){
+    const confirmar = confirm("Ya existe una compra registrada con esta fecha. ¿Deseas guardarla de todos modos?");
+    if(!confirmar){
+      return;
+    }
+  }
+
+  compras.push({
+    id: generarId(),
+    fecha,
+    litros,
+    costo,
+    comentarios
+  });
+
+  guardarEnLocalStorage();
   limpiar();
   mostrarCompras();
 }
 
-function mostrarCompras(){
-  let lista = document.getElementById("listaCompras");
-  lista.innerHTML="";
-  compras.sort((a,b)=> new Date(b.fecha) - new Date(a.fecha));
-
-  let duraciones=[];
-
-  compras.forEach((c,index)=>{
-    let costoLitro=(c.costo/c.litros).toFixed(2);
-    let duracion="";
-
-    if(index < compras.length-1){
-      let actual=new Date(c.fecha);
-      let anterior=new Date(compras[index+1].fecha);
-      let dias=Math.round((actual-anterior)/(1000*60*60*24));
-      duracion=`Duró ${dias} días`;
-      duraciones.push(dias);
-    }
-
-    lista.innerHTML+=`
-    <div class="compra">
-      <strong>${c.fecha}</strong><br>
-      Litros: ${c.litros} L<br>
-      Costo: $${c.costo} MXN<br>
-      Costo por litro: $${costoLitro}<br>
-      ${duracion}<br>
-      ${c.comentarios ? "Nota: "+c.comentarios+"<br>" : ""}
-      <button class="delete" onclick="eliminar(${index})">Eliminar</button>
-    </div>`;
-  });
-
-  actualizarResumen(duraciones);
+function obtenerComprasOrdenadas(){
+  return [...compras].sort((a,b) => parseFechaLocal(b.fecha) - parseFechaLocal(a.fecha));
 }
 
-function actualizarResumen(duraciones){
-  let resumen=document.getElementById("resumen");
-  if(compras.length<2){
-    resumen.innerHTML="Agrega al menos dos registros para calcular duración promedio.";
+function calcularDuraciones(comprasOrdenadas){
+  let duraciones = [];
+
+  for(let i = 0; i < comprasOrdenadas.length - 1; i++){
+    const actual = parseFechaLocal(comprasOrdenadas[i].fecha);
+    const anterior = parseFechaLocal(comprasOrdenadas[i + 1].fecha);
+
+    const dias = Math.round(
+      (actual - anterior) / (1000 * 60 * 60 * 24)
+    );
+
+    if(dias > 0){
+      duraciones.push({
+        idActual: comprasOrdenadas[i].id,
+        dias
+      });
+    }
+  }
+
+  return duraciones;
+}
+
+function mostrarCompras(){
+  let lista = document.getElementById("listaCompras");
+  lista.innerHTML = "";
+
+  const comprasOrdenadas = obtenerComprasOrdenadas();
+  const duraciones = calcularDuraciones(comprasOrdenadas);
+
+  if(comprasOrdenadas.length === 0){
+    lista.innerHTML = `
+      <div class="card vacio">
+        Todavía no tienes compras registradas.
+        <br>
+        Agrega tu primera compra para comenzar el control.
+      </div>
+    `;
+
+    actualizarResumen([]);
+    actualizarGrafica([]);
     return;
   }
 
-  let promedio=(duraciones.reduce((a,b)=>a+b,0)/duraciones.length).toFixed(1);
-  resumen.innerHTML=`Duración promedio: <strong>${promedio} días</strong>`;
+  comprasOrdenadas.forEach((c) => {
+    let costoLitro = c.costo / c.litros;
+
+    let duracionEncontrada = duraciones.find(d => d.idActual === c.id);
+    let duracion = "";
+
+    if(duracionEncontrada){
+      duracion = `Duró ${duracionEncontrada.dias} días`;
+    }else{
+      duracion = "Compra más antigua registrada";
+    }
+
+    lista.innerHTML += `
+      <div class="compra">
+        <strong>${formatearFecha(c.fecha)}</strong><br>
+        Litros: ${Number(c.litros).toFixed(2)} L<br>
+        Costo: ${formatoMoneda(c.costo)}<br>
+        Costo por litro: ${formatoMoneda(costoLitro)}<br>
+        ${duracion}<br>
+
+        ${
+          c.comentarios
+          ? `<div class="nota">Nota: ${escaparHTML(c.comentarios)}</div>`
+          : ""
+        }
+
+        <div class="acciones">
+          <button class="delete btn-small" onclick="eliminar('${c.id}')">Eliminar</button>
+        </div>
+      </div>
+    `;
+  });
+
+  actualizarResumen(duraciones.map(d => d.dias));
+  actualizarGrafica(comprasOrdenadas);
 }
 
-function eliminar(index){
-  compras.splice(index,1);
-  localStorage.setItem("gasCompras", JSON.stringify(compras));
+function actualizarResumen(duraciones){
+  let resumen = document.getElementById("resumen");
+
+  if(compras.length === 0){
+    resumen.innerHTML = `
+      <div class="vacio">
+        Sin datos todavía. Registra tu primera compra para generar estadísticas.
+      </div>
+    `;
+    return;
+  }
+
+  const comprasOrdenadas = obtenerComprasOrdenadas();
+  const ultimaCompra = comprasOrdenadas[0];
+
+  const totalLitros = compras.reduce((acc,c) => acc + Number(c.litros), 0);
+  const totalCosto = compras.reduce((acc,c) => acc + Number(c.costo), 0);
+
+  const promedioCostoLitro = compras.reduce((acc,c) => {
+    return acc + (Number(c.costo) / Number(c.litros));
+  }, 0) / compras.length;
+
+  const promedioLitros = totalLitros / compras.length;
+  const promedioCostoCompra = totalCosto / compras.length;
+
+  let html = "";
+
+  if(compras.length < 2 || duraciones.length === 0){
+    html = `
+      <div class="resumen-grid">
+        <div class="stat">
+          <div class="stat-title">Compras registradas</div>
+          <div class="stat-value">${compras.length}</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-title">Última compra</div>
+          <div class="stat-value">${formatearFecha(ultimaCompra.fecha)}</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-title">Costo promedio por litro</div>
+          <div class="stat-value">${formatoMoneda(promedioCostoLitro)}</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-title">Promedio litros por compra</div>
+          <div class="stat-value">${promedioLitros.toFixed(2)} L</div>
+        </div>
+      </div>
+
+      <div class="alerta-azul">
+        Agrega al menos dos compras con fechas diferentes para calcular duración promedio, consumo diario y próxima compra estimada.
+      </div>
+    `;
+
+    resumen.innerHTML = html;
+    return;
+  }
+
+  let promedioDias = duraciones.reduce((a,b) => a + b, 0) / duraciones.length;
+  promedioDias = Number(promedioDias.toFixed(1));
+
+  let consumoPromedioDiario = calcularConsumoPromedioDiario(comprasOrdenadas);
+
+  let fechaEstimadaPromedio = parseFechaLocal(ultimaCompra.fecha);
+  fechaEstimadaPromedio.setDate(
+    fechaEstimadaPromedio.getDate() + Math.round(promedioDias)
+  );
+
+  let fechaEstimadaInteligente = null;
+  let diasEstimadosInteligente = null;
+
+  if(consumoPromedioDiario > 0){
+    diasEstimadosInteligente = Math.round(Number(ultimaCompra.litros) / consumoPromedioDiario);
+    fechaEstimadaInteligente = parseFechaLocal(ultimaCompra.fecha);
+    fechaEstimadaInteligente.setDate(
+      fechaEstimadaInteligente.getDate() + diasEstimadosInteligente
+    );
+  }
+
+  let fechaFinalPrediccion = fechaEstimadaInteligente || fechaEstimadaPromedio;
+
+  let hoy = new Date();
+  hoy.setHours(0,0,0,0);
+
+  let diasRestantes = Math.ceil(
+    (fechaFinalPrediccion - hoy) / (1000 * 60 * 60 * 24)
+  );
+
+  let estado = "";
+  let clase = "alerta-verde";
+
+  if(diasRestantes < 0){
+    estado = `⚠️ La compra estimada ya venció hace ${Math.abs(diasRestantes)} día(s). Conviene revisar tu nivel de gas.`;
+    clase = "alerta-roja";
+  }
+  else if(diasRestantes === 0){
+    estado = "🔴 La compra estimada es hoy. Revisa tu nivel de gas.";
+    clase = "alerta-roja";
+  }
+  else if(diasRestantes <= 5){
+    estado = `🟡 Posible compra cercana. Faltan aproximadamente ${diasRestantes} día(s).`;
+    clase = "alerta-amarilla";
+  }
+  else{
+    estado = `🟢 Aún tienes margen. Faltan aproximadamente ${diasRestantes} día(s).`;
+    clase = "alerta-verde";
+  }
+
+  let variacionPrecioTexto = "Sin comparación";
+  let variacionIcono = "➖";
+
+  if(comprasOrdenadas.length >= 2){
+    let ultimoPrecio = Number(comprasOrdenadas[0].costo) / Number(comprasOrdenadas[0].litros);
+    let precioAnterior = Number(comprasOrdenadas[1].costo) / Number(comprasOrdenadas[1].litros);
+
+    if(precioAnterior > 0){
+      let diferencia = ((ultimoPrecio - precioAnterior) / precioAnterior) * 100;
+
+      if(diferencia > 0){
+        variacionIcono = "🔺 Subió";
+      }else if(diferencia < 0){
+        variacionIcono = "🔻 Bajó";
+      }else{
+        variacionIcono = "➖ Igual";
+      }
+
+      variacionPrecioTexto = `${diferencia.toFixed(1)}% ${variacionIcono}`;
+    }
+  }
+
+  html = `
+    <div class="resumen-grid">
+      <div class="stat">
+        <div class="stat-title">Duración promedio</div>
+        <div class="stat-value">${promedioDias} días</div>
+        <div class="stat-small">Calculado entre compras registradas.</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Próxima compra estimada</div>
+        <div class="stat-value">${formatearFechaCorta(fechaFinalPrediccion)}</div>
+        <div class="stat-small">
+          ${
+            fechaEstimadaInteligente
+            ? "Predicción basada en consumo real."
+            : "Predicción basada en promedio de días."
+          }
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Días restantes</div>
+        <div class="stat-value">${diasRestantes < 0 ? 0 : diasRestantes} día(s)</div>
+        <div class="stat-small">A partir de hoy.</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Costo promedio por litro</div>
+        <div class="stat-value">${formatoMoneda(promedioCostoLitro)}</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Promedio litros por compra</div>
+        <div class="stat-value">${promedioLitros.toFixed(2)} L</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Gasto promedio por compra</div>
+        <div class="stat-value">${formatoMoneda(promedioCostoCompra)}</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Consumo promedio diario</div>
+        <div class="stat-value">
+          ${
+            consumoPromedioDiario > 0
+            ? consumoPromedioDiario.toFixed(2) + " L/día"
+            : "No disponible"
+          }
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-title">Variación precio por litro</div>
+        <div class="stat-value">${variacionPrecioTexto}</div>
+      </div>
+    </div>
+
+    <div class="${clase}">
+      ${estado}
+    </div>
+  `;
+
+  resumen.innerHTML = html;
+}
+
+function calcularConsumoPromedioDiario(comprasOrdenadas){
+  if(comprasOrdenadas.length < 2){
+    return 0;
+  }
+
+  let consumos = [];
+
+  for(let i = 0; i < comprasOrdenadas.length - 1; i++){
+    const compraMasNueva = comprasOrdenadas[i];
+    const compraAnterior = comprasOrdenadas[i + 1];
+
+    const fechaNueva = parseFechaLocal(compraMasNueva.fecha);
+    const fechaAnterior = parseFechaLocal(compraAnterior.fecha);
+
+    const dias = Math.round(
+      (fechaNueva - fechaAnterior) / (1000 * 60 * 60 * 24)
+    );
+
+    if(dias > 0 && Number(compraAnterior.litros) > 0){
+      const consumoDiario = Number(compraAnterior.litros) / dias;
+      consumos.push(consumoDiario);
+    }
+  }
+
+  if(consumos.length === 0){
+    return 0;
+  }
+
+  return consumos.reduce((a,b) => a + b, 0) / consumos.length;
+}
+
+function actualizarGrafica(comprasOrdenadas){
+  const grafica = document.getElementById("grafica");
+
+  if(!comprasOrdenadas || comprasOrdenadas.length === 0){
+    grafica.innerHTML = `
+      <div class="vacio">
+        La gráfica aparecerá cuando registres compras.
+      </div>
+    `;
+    return;
+  }
+
+  const ultimasCompras = comprasOrdenadas.slice(0, 8).reverse();
+  const maxCosto = Math.max(...ultimasCompras.map(c => Number(c.costo)));
+
+  let html = "";
+
+  ultimasCompras.forEach(c => {
+    const porcentaje = maxCosto > 0 ? (Number(c.costo) / maxCosto) * 100 : 0;
+
+    html += `
+      <div class="barra-contenedor">
+        <div class="barra-label">
+          <span>${formatearFecha(c.fecha)}</span>
+          <span>${formatoMoneda(c.costo)}</span>
+        </div>
+        <div class="barra-fondo">
+          <div class="barra" style="width:${porcentaje}%"></div>
+        </div>
+      </div>
+    `;
+  });
+
+  grafica.innerHTML = html;
+}
+
+function eliminar(id){
+  const compra = compras.find(c => c.id === id);
+
+  if(!compra){
+    alert("No se encontró la compra.");
+    return;
+  }
+
+  const confirmar = confirm(
+    `¿Seguro que deseas eliminar la compra del ${formatearFecha(compra.fecha)}?`
+  );
+
+  if(!confirmar){
+    return;
+  }
+
+  compras = compras.filter(c => c.id !== id);
+  guardarEnLocalStorage();
   mostrarCompras();
 }
 
 function limpiar(){
-  document.getElementById("fecha").value="";
-  document.getElementById("litros").value="";
-  document.getElementById("costo").value="";
-  document.getElementById("comentarios").value="";
+  document.getElementById("fecha").value = "";
+  document.getElementById("litros").value = "";
+  document.getElementById("costo").value = "";
+  document.getElementById("comentarios").value = "";
 }
 
-mostrarCompras();
+function descargarRespaldo(){
+  if(compras.length === 0){
+    alert("No hay compras para respaldar.");
+    return;
+  }
 
+  const respaldo = {
+    app: "Control Gas LP",
+    version: "2.0",
+    fechaRespaldo: new Date().toISOString(),
+    compras: compras
+  };
+
+  const contenido = JSON.stringify(respaldo, null, 2);
+  const blob = new Blob([contenido], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+
+  const enlace = document.createElement("a");
+  enlace.href = url;
+  enlace.download = "respaldo-control-gas-lp.json";
+  enlace.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function restaurarRespaldo(){
+  const input = document.getElementById("archivoRespaldo");
+
+  if(!input.files || input.files.length === 0){
+    alert("Selecciona un archivo JSON de respaldo.");
+    return;
+  }
+
+  const archivo = input.files[0];
+  const lector = new FileReader();
+
+  lector.onload = function(e){
+    try{
+      const datos = JSON.parse(e.target.result);
+
+      let comprasRestauradas = [];
+
+      if(Array.isArray(datos)){
+        comprasRestauradas = datos;
+      }else if(datos && Array.isArray(datos.compras)){
+        comprasRestauradas = datos.compras;
+      }else{
+        alert("El archivo no tiene un formato válido.");
+        return;
+      }
+
+      comprasRestauradas = comprasRestauradas
+        .filter(c => c.fecha && c.litros && c.costo)
+        .map(c => ({
+          id: c.id || generarId(),
+          fecha: c.fecha,
+          litros: Number(c.litros),
+          costo: Number(c.costo),
+          comentarios: c.comentarios || ""
+        }));
+
+      if(comprasRestauradas.length === 0){
+        alert("El respaldo no contiene compras válidas.");
+        return;
+      }
+
+      const confirmar = confirm(
+        "Esto reemplazará el historial actual por el respaldo seleccionado. ¿Deseas continuar?"
+      );
+
+      if(!confirmar){
+        return;
+      }
+
+      compras = comprasRestauradas;
+      guardarEnLocalStorage();
+      input.value = "";
+      mostrarCompras();
+
+      alert("Respaldo restaurado correctamente.");
+    }catch(error){
+      alert("No se pudo leer el archivo. Verifica que sea un JSON válido.");
+    }
+  };
+
+  lector.readAsText(archivo);
+}
+
+function escaparHTML(texto){
+  return String(texto)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function inicializarFechaActual(){
+  const fechaInput = document.getElementById("fecha");
+
+  if(!fechaInput.value){
+    const hoy = new Date();
+    const yyyy = hoy.getFullYear();
+    const mm = String(hoy.getMonth() + 1).padStart(2, "0");
+    const dd = String(hoy.getDate()).padStart(2, "0");
+
+    fechaInput.value = `${yyyy}-${mm}-${dd}`;
+  }
+}
+
+inicializarFechaActual();
+mostrarCompras();
 </script>
 
 </body>
